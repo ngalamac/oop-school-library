@@ -77,7 +77,7 @@ No installation required
 
 ### Usage
 
-To run the project, execute the run RUBY on the [project file](#)
+To run the project, execute the run RUBY on the [project file](https://github.com/ngalamac/oop-school-library.git)
 
 ### Run tests
 
