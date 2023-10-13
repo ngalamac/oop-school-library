@@ -1,30 +1,18 @@
-# Person class
 require_relative 'nameable'
-class Person < Nameable
-  attr_accessor :name, :age, :rentals
-  attr_reader :id
 
-  def initialize(age, name = 'unknown', parent_permission: true)
+class Person < Nameable
+  attr_accessor :name, :age
+  attr_reader :id, :rentals
+
+  def initialize(name: 'Unknown', age: 0, parent_permission: true)
     super()
-    @id = Random.rand(1..1000)
+    @id = generate_id
     @name = name
+    @rentals = []
     @age = age
     @parent_permission = parent_permission
-    @rentals = []
   end
 
-  # Getter methods...
-
-  private
-
-  # Private method to check if person's age is at least 18
-  def of_age?
-    @age >= 18
-  end
-
-  public
-
-  # Public method to check if person is eligible to use the service
   def can_use_services?
     of_age? || @parent_permission
   end
@@ -33,7 +21,17 @@ class Person < Nameable
     @name
   end
 
-  def add_rental(book, date)
-    Rental.new(date, book, self)
+  def add_rental(rental)
+    @rentals << rental
+  end
+
+  private
+
+  def of_age?
+    @age >= 18
+  end
+
+  def generate_id
+    rand(1..1000)
   end
 end
