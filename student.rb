@@ -1,17 +1,9 @@
-# Student class inherited from Person
 require_relative 'person'
 
 class Student < Person
-  attr_reader :classroom, :name
+  attr_accessor :name, :classroom
 
-  def initialize(classroom, age, name = 'unknown', parent_permission: true)
-    super(age, name, parent_permission)
-    @classroom = classroom
-    classroom.add_student(self) unless classroom.students.include?(self)
-  end
-
-  # play_hooky method
-  def play_hooky
-    '¯\\(ツ)/¯'
+  def initialize(name: 'Unknown', age: 0, parent_permission: true)
+    super(name: name, age: age, parent_permission: parent_permission)
   end
 end
