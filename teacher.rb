@@ -1,13 +1,14 @@
-# Teacher class inherited from Person
 require_relative 'person'
 
 class Teacher < Person
-  def initialize(specialization, age, name = 'unknown', parent_permission: true)
-    super(age, name, parent_permission)
+  attr_accessor :name, :specialization
+
+  def initialize(specialization:, name: 'Unknown', age: 0, parent_permission: true)
+    super(name: name, age: age, parent_permission: parent_permission)
     @specialization = specialization
+    specialization.add_teacher(self) unless specialization.teachers.include?(self)
   end
 
-  # Override can_use_services?
   def can_use_services?
     true
   end
