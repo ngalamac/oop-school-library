@@ -1,81 +1,58 @@
 require_relative 'app'
 
-def greetings
-  puts 'Welcome to School Library App'
-  puts ''
+def welcome_message
+  puts 'Welcome to School Library App!'
+  puts
 end
 
-def options_list
+def display_menu
   puts 'Please choose an option by entering a number:'
-  puts '1- List all books'
-  puts '2- List all people'
-  puts '3- Create a person'
-  puts '4- Create a book'
-  puts '5- Create a rental'
-  puts '6- List all rentals for a given person id'
-  puts '7- Exit'
+  puts '1. List all books'
+  puts '2. List all people'
+  puts '3. Create a person (teacher or student)'
+  puts '4. Create a book'
+  puts '5. Create a rental'
+  puts '6. List all rentals for a given person id'
+  puts '7. Quit'
 end
 
-def list_books_option(app)
-  app.list_books
-end
-
-def list_people_option(app)
-  app.list_people
-end
-
-def create_person_option(app)
-  app.create_user_input
-end
-
-def create_book_option(app)
-  app.create_book
-end
-
-def create_rental_option(app)
-  app.create_rental
-end
-
-def list_rentals_option(app)
-  app.list_rentals
-end
-
-def exit_option
-  exit
-end
-
-def call_options(option, app)
-  option_actions = {
-    1 => method(:list_books_option),
-    2 => method(:list_people_option),
-    3 => method(:create_person_option),
-    4 => method(:create_book_option),
-    5 => method(:create_rental_option),
-    6 => method(:list_rentals_option),
-    7 => method(:exit_option)
-  }
-
-  option_action = option_actions[option]
-
-  if option_action
-    option_action.call(app)
+def process_choice(choice, app)
+  case choice
+  when 1
+    app.list_books
+  when 2
+    app.list_people
+  when 3
+    app.create_person
+  when 4
+    app.create_book
+  when 5
+    app.create_rental
+  when 6
+    app.list_rentals_for_person
+  when 7
+    puts 'Thank you for using School Library App. Goodbye!'
   else
-    puts 'Invalid option'
+    puts 'Invalid choice. Please choose a valid option.'
   end
 end
 
 def main
   app = App.new
-  greetings_displayed = false
+  welcome_shown = false
+
   loop do
-    unless greetings_displayed
-      greetings
-      greetings_displayed = true
+    unless welcome_shown
+      welcome_message
+      welcome_shown = true
     end
-    options_list
-    option = gets.chomp.to_i
-    call_options(option, app)
-    break if option == 7
+
+    display_menu
+    choice = gets.chomp.to_i
+
+    process_choice(choice, app)
+
+    break if choice == 7
   end
 end
 
